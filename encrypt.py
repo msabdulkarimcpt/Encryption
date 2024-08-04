@@ -4,7 +4,7 @@ from io import BytesIO
 
 def encrypt_file(key: IO, file: IO) -> IO:
     gpg = gnupg.GPG()
-    
+  
     # Import the key
     key_data = key.read()
     import_result = gpg.import_keys(key_data)
