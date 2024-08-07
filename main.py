@@ -26,7 +26,7 @@ def export_private_key(email: str, passphrase: str) -> str:
     return gpg.export_keys(fingerprint, secret=True, passphrase=passphrase)
 
 def main():
-    email = 'msabdulkarimcpt@gmail.com'
+    email = 'abc@abc.com'
     passphrase = '12345'
 
     # gpg = gnupg.GPG()

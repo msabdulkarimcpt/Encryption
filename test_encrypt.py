@@ -14,7 +14,7 @@ class PytestScenario:
 @pytest.mark.parametrize("scenario", [
     PytestScenario(
         key= export_public_key('abc@abc.com', '12345'),
-        file_content="This is a test file content."
+        file_content="Have a nice day."
     ),
     # Add more scenarios if needed
 ])

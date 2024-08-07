@@ -6,7 +6,7 @@ gpg.encoding = 'utf-8'
 
  # Generate key pair (if you don't have keys already)
 input_data = gpg.gen_key_input(
-    name_email='msabdulkarimcpt@gmail.com',
+    name_email='abc@abc.com',
     passphrase='12345'
 )
 
@@ -26,7 +26,7 @@ with open('private_key.asc', 'w') as f:
 # Encrypt a file
 with open('data.txt', 'rb') as f:
     encrypted_data = gpg.encrypt_file(
-        f, recipients=['msabdulkarimcpt@gmail.com'],
+        f, recipients=['abc@abc.com'],
         output=None
     )
 
