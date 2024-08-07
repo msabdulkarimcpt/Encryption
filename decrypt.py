@@ -2,7 +2,7 @@ import gnupg
 from typing import IO
 from io import BytesIO
 
-def decrypt_file(key: IO, file: IO) -> IO:
+def decrypt_file(key: IO, file: IO, passphrase: str = None) -> IO:
     gpg = gnupg.GPG()
     
     # Import the private key
@@ -13,7 +13,10 @@ def decrypt_file(key: IO, file: IO) -> IO:
         raise ValueError("Failed to import the PGP key")
     
     # Decrypt the file
-    decrypted_data = gpg.decrypt_file(file)
+    if passphrase:
+        decrypted_data = gpg.decrypt_file(file, passphrase=passphrase)
+    else:
+        decrypted_data = gpg.decrypt_file(file)
     
     if not decrypted_data.ok:
         raise ValueError(f"Decryption failed: {decrypted_data.status}")

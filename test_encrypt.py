@@ -1,6 +1,10 @@
 import pytest
 from io import BytesIO
 from dataclasses import dataclass
+from encrypt import encrypt_file
+from typing import Any
+from main import export_public_key
+
 
 @dataclass
 class PytestScenario:
@@ -9,20 +13,17 @@ class PytestScenario:
 
 @pytest.mark.parametrize("scenario", [
     PytestScenario(
-        key="""
-        -----BEGIN PGP PUBLIC KEY BLOCK-----
-        ... your PGP public key here ...
-        -----END PGP PUBLIC KEY BLOCK-----
-        """,
+        key= export_public_key('abc@abc.com', '12345'),
         file_content="This is a test file content."
     ),
     # Add more scenarios if needed
 ])
-def test_encrypt_file(scenario: PytestScenario[str, str]) -> None:
+def test_encrypt_file(scenario: PytestScenario) -> None:
     key = BytesIO(scenario.key.encode('utf-8'))
     file = BytesIO(scenario.file_content.encode('utf-8'))
     
     encrypted_file = encrypt_file(key, file)
+    print("Encrypted value: ", encrypted_file.getvalue())
     
     assert encrypted_file is not None
     assert len(encrypted_file.getvalue()) > 0

@@ -14,7 +14,7 @@ key = gpg.gen_key(input_data)
 
 # Export public and private keys
 public_key = gpg.export_keys(key.fingerprint)
-private_key = gpg.export_keys(key.fingerprint, secret=True, passphrase='101')
+private_key = gpg.export_keys(key.fingerprint, secret=True, passphrase='12345')
 
 # Save keys to files (optional)
 with open('public_key.asc', 'w') as f:
@@ -25,19 +25,22 @@ with open('private_key.asc', 'w') as f:
 
 # Encrypt a file
 with open('data.txt', 'rb') as f:
-    status = gpg.encrypt_file(
+    encrypted_data = gpg.encrypt_file(
         f, recipients=['msabdulkarimcpt@gmail.com'],
-        output='data.txt.gpg'
+        output=None
     )
 
-if status.ok:
+if encrypted_data.ok:
     print('File encrypted successfully')
 else:
-    print('Encryption failed:', status.status)
+    print('Encryption failed:', encrypted_data.status)
+
+    
+print("Encrypted content:", encrypted_data.data)
 
 # Decrypt the file
 with open('data.txt.gpg', 'rb') as f:
-    status = gpg.decrypt_file(f, passphrase='101', output='decrypted_file.txt')
+    status = gpg.decrypt_file(f, passphrase='12345', output='decrypted_file.txt')
 
 if status.ok:
     print('File decrypted successfully')
